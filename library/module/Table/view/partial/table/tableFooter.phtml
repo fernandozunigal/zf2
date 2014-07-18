@@ -1,0 +1,116 @@
+<div class="block-footer form clearfix">
+    <?php if(isset($this->multirowActions) && isset($this->multirowActions['actions']) && count($this->multirowActions['actions']) > 0): ?>
+        <div class="float-left">
+            <img class="picto" width="16" height="16" src="/images/table/icons/arrow-curve-000-left.png">
+            <a id="selectAll" class="button" href="javascript:void(0)"><?php echo $this->escapeHtml($this->translate('Select All')); ?></a>
+            <a id="unselectAll" class="button" href="javascript:void(0)"><?php echo $this->escapeHtml($this->translate('Unselect All')); ?></a>
+            <span class="sep"></span>
+                <select id="table-action" name="table-action">
+                    <?php if(isset($this->multirowActions['title'])): ?>
+                        <option value=""><?php echo $this->escapeHtml($this->translate($this->multirowActions['title'])); ?></option>
+                    <?php endif; ?>
+                    <?php foreach ($this->multirowActions['actions'] as $actionName => $actionOptions): ?>
+                        <?php
+                            $actionName = ucfirst($actionName);
+                            $dataClass = '';
+                            $dataTitle = '';
+                            $dataAjax = '';
+                            if(isset($actionOptions['title']) && $actionOptions['title'] != ''){
+                                $title = $this->escapeHtml($this->translate($actionOptions['title']));
+                            } else {
+                                $title = $this->escapeHtml($this->translate($actionName));
+                            }
+                            if(isset($actionOptions['action']) && $actionOptions['action'] != ''){
+                                $actionName = ucfirst($actionOptions['action']);
+                            }
+                            if(isset($actionOptions['ajax']) && $actionOptions['ajax']){
+                                $dataAjax = 'data-ajax="true"';
+                                if(isset($actionOptions['modalConfirm']) && count($actionOptions['modalConfirm']) > 0){
+                                    if(isset($actionOptions['modalConfirm']['type']) && $actionOptions['modalConfirm']['type'] != ''){
+                                        $dataClass = 'data-class="' . $actionOptions['modalConfirm']['type'] .'"';
+                                    }
+                                    if(isset($actionOptions['modalConfirm']['title']) && $actionOptions['modalConfirm']['title'] != ''){
+                                        $dataTitle = 'data-title="' . $this->escapeHtml($this->translate($actionOptions['modalConfirm']['title'])) . '"';
+                                    } else {
+                                        if(isset($actionOptions['title']) && $actionOptions['title'] != '') {
+                                            $dataTitle = 'data-title="' . $this->escapeHtml($this->translate($actionOptions['title'])) . '"';
+                                        } else {
+                                            $dataTitle = 'data-title="' . $this->escapeHtml($this->translate($actionName)) . '"';
+                                        }
+                                    }
+                                }
+                            }
+                            $dataUrl = 'data-url="' . $this->url($this->routeName, array('locale' => $this->layout()->getVariable('locale'), 'action' => $actionOptions['action'])) . '"';
+                        ?>
+                        <option value="<?php echo $actionName; ?>" <?php echo $dataClass; ?> <?php echo $dataTitle; ?> <?php echo $dataAjax; ?> <?php echo $dataUrl; ?>><?php echo $this->escapeHtml($this->translate($title)); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button id="accept" class="small" type="submit"><?php echo $this->escapeHtml($this->translate('Accept')); ?></button>
+        </div>
+    <?php endif; ?>
+    <?php if(get_class($this->rowSet) == 'Zend\Paginator\Paginator'){
+        echo $this->paginationControl($this->rowSet, 'Sliding', array('partial/table/rowSelector.phtml', 'table'),array('routeName' => $this->routeName, 'rowsTitle' => $this->rowsTitle));
+    } ?>
+</div>
+<?php foreach ($this->multirowActions['actions'] as $actionName => $actionConfig): ?>
+    <?php if(isset($actionConfig['ajax']) && $actionConfig['ajax'] && isset($actionConfig['modalConfirm']) && count($actionConfig['modalConfirm']) > 0): ?>
+        <div class="no-display">
+            <div id="multirow<?php echo ucfirst(strtolower($actionName)); ?>Modal">
+                <p class="confirmationModalText">
+                    <?php 
+                        if(isset($actionConfig['modalConfirm']['message'])) {
+                            echo $this->escapeHtml($this->translate($actionConfig['modalConfirm']['message']));
+                        }
+                    ?>
+                </p>
+                <button id="yes" type="button" class="green float-left"><?php echo $this->escapeHtml($this->translate('Yes')); ?></button>
+                <button id="no" type="button" class="red float-right"><?php echo $this->escapeHtml($this->translate('No')); ?></button>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endforeach; ?>
+<script>
+    $(document).ready(function(){
+        $('#selectAll').on('click', function() {
+            $("#<?php echo $this->tableId ?> input[type='checkbox']").each(function(){
+                this.checked = true;
+            });
+        });
+        $('#unselectAll').on('click', function() {
+            $("#<?php echo $this->tableId ?> input[type='checkbox']").each(function(){
+                this.checked = false;
+            });
+        });
+        $('#accept').on('click', function(event) {
+            var action = $('#table-action').val();
+            var className = $('#table-action option:selected').data('class');
+            var title = $('#table-action option:selected').data('title');
+            var ajax = $('#table-action option:selected').data('ajax');
+            var url = $('#table-action option:selected').data('url');
+            var ids = new Array();
+            $('th.table-check-cell input[type=checkbox]:checked').each(function (){ ids.push($(this).val()); });
+            if(action !== '' && ajax === true && ids.length > 0){
+                $.colorbox({open:true, inline:true, href:'#multirow'+action+'Modal', overlayClose:false, className:className, fixed:'true', transition:'elastic', speed:200, initialWidth:'0', initialHeight:'0', title:title});
+                $('div#multirow'+action+'Modal button#no').off('click').on('click', function(){
+                    $.fn.colorbox.close();
+                });
+                $('div#multirow'+action+'Modal button#yes').off('click').on('click', function(){
+                    jQuery.post(
+                        url,
+                        { 'ids':ids.toString() },
+                        function (response) {
+                            if(response.error){
+                                $.fn.colorbox.close();
+                            } else {
+                                $('#refresh').trigger('click');
+                                $.fn.colorbox.close();
+                            }
+                        }
+                    );
+                });
+            } else if(action !== '' && (ajax === undefined || ajax === false) && ids.length > 0){
+                console.debug('redirect to Edit');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,64 @@
+<thead>
+    <tr>
+        <th class="black-cell">
+            <span id="loading"></span>
+        </th>
+        <?php if(isset($this->actions) && count($this->actions) > 0): ?>
+            <th class="table-actions" scope="col">
+                <?php echo $this->escapeHtml($this->translate('Actions')); ?>
+            </th>
+        <?php endif; ?>
+        <?php foreach ($this->titlesRowSet as $titlesRow){
+            $first = true;
+            foreach ($titlesRow as $fieldName => $fieldValue) {
+                if ($first) {
+                    $first = false;
+                    continue;
+            } ?>
+            <th scope="col">
+                <span class="column-sort">
+                    <?php 
+                        $activateAsc = '';
+                        $activateDesc = '';
+                        if($this->orderBy == $fieldName){
+                            if(strtolower($this->orderDirection) == 'desc'){
+                                $activateDesc = 'active';
+                            } else {
+                                $activateAsc = 'active';
+                            }
+                        }
+                    ?>
+                    <a class="sort-up <?php echo $activateAsc; ?>" data-name="<?php echo $this->escapeHtml($fieldName); ?>" data-order="asc" title="<?php echo $this->escapeHtml($this->translate('Sort up')); ?>" href="javascript:void(0)"></a>
+                    <a class="sort-down <?php echo $activateDesc; ?>" data-name="<?php echo $this->escapeHtml($fieldName); ?>" data-order="desc" title="<?php echo $this->escapeHtml($this->translate('Sort down')); ?>" href="javascript:void(0)"></a>
+                </span>
+                <?php echo $this->escapeHtml($this->translate($fieldName)); ?>
+            </th>
+            <?php }
+            break;
+        } ?>
+    </tr>
+</thead>
+<script>
+    $(document).ready(function(){
+        $('.column-sort a').click(function() {
+            $('#loading').addClass('loading');
+            if($(this).hasClass('active')){
+                var getObject = { 'rows' : $('#rowSelector').val() };
+                $('.column-sort a.active').removeClass('active');
+            } else {
+                var getObject = { 'name' : $(this).data('name'), 'order' : $(this).data('order'), 'rows' : $('#rowSelector').val() };
+                $('.column-sort a.active').removeClass('active');
+                $(this).addClass('active');
+            }
+            jQuery.get(
+                '<?php echo $this->url($this->route, array('locale' => $this->layout()->getVariable('locale'))); ?>', getObject,
+                function (response) {
+                    $('#controls').html(response.controls);
+                    $('#data').html(response.data);
+                    $('#messages').html(response.messages);
+                    $('#loading').removeClass('loading');
+                }
+            );
+        });
+    });
+</script>

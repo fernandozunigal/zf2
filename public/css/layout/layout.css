@@ -1,0 +1,373 @@
+/*
+    Template Reference: http://demo.mosaicpro.biz/smashingadmin/php/index.php?lang=en&page=index
+*/
+
+body {
+    background-color: #D5D8DB;
+    height: 100%;
+}
+
+.breadcrumb {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -ms-linear-gradient(top, white, #72C6E4 5%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(top, white, #72C6E4 5%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top, white, #72C6E4 5%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top, white, #72C6E4 5%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(5%,#72C6E4), color-stop(100%,#0C5FA5)) repeat scroll 0 0 transparent;
+    border-color: #0099CC #006699 #003366;
+    border-image: none;
+    border-radius: 0.417em 0.417em 0.417em 0.417em;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    float: left;
+    height: 1.75em;
+    line-height: 1.5em;
+    margin: 0.667em 1em 0 0;
+}
+
+.breadcrumb li {
+    background: url("/images/layout/breadcrumb-sep.png") no-repeat scroll right center transparent;
+    color: white;
+    float: left;
+    height: 19px;
+    padding: 0.083em 1em 0 0;
+}
+
+.breadcrumb li:last-child {
+    background: none repeat scroll 0 0 transparent;
+    padding-right: 0;
+}
+
+.breadcrumb li a, .breadcrumb li span {
+    color: white;
+    display: block;
+    height: 1.667em;
+    padding: 0 0.75em 0 0.667em;
+    text-decoration: none;
+    transition-duration: 1s;
+    font-size: 12px;
+}
+
+.breadcrumb li a:hover {
+    background: -ms-linear-gradient(left, rgba(109, 192, 229, 0), rgba(109, 192, 229, 0.8) 25%, #6DC0E5 50%, rgba(109, 192, 229, 0.8) 75%, rgba(109, 192, 229, 0)) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(left, rgba(109, 192, 229, 0), rgba(109, 192, 229, 0.8) 25%, #6DC0E5 50%, rgba(109, 192, 229, 0.8) 75%, rgba(109, 192, 229, 0)) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(left, rgba(109, 192, 229, 0), rgba(109, 192, 229, 0.8) 25%, #6DC0E5 50%, rgba(109, 192, 229, 0.8) 75%, rgba(109, 192, 229, 0)) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(left, rgba(109, 192, 229, 0), rgba(109, 192, 229, 0.8) 25%, #6DC0E5 50%, rgba(109, 192, 229, 0.8) 75%, rgba(109, 192, 229, 0)) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left, color-stop(0%,#FFFFFF), color-stop(5%,#72C6E4), color-stop(100%,#0C5FA5)) repeat scroll 0 0 transparent;
+    transition-duration: 100ms;
+}
+
+.status-bar {
+    background: -ms-linear-gradient(top, white, #DADADA 6%, white 92%, #CFCFCF) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(top, white, #DADADA 6%, white 92%, #CFCFCF) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top, white, #DADADA 6%, white 92%, #CFCFCF) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top, white, #DADADA 6%, white 92%, #CFCFCF) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(6%,#DADADA), color-stop(92%,#FFFFFF), color-stop(100%,#CFCFCF)) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #969696;
+    color: #7B7B7B;
+    height: 3.25em;
+    line-height: 3.167em;
+    text-align: right;
+}
+
+.container_12 {
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 98%;
+}
+
+.sub-nav {
+    background: -ms-linear-gradient(top , #303135, #3C3D42 6%, #404447 18%, #34383B 50%, #25292C 50%, #1A1B1F 63%, black) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(top , #303135, #3C3D42 6%, #404447 18%, #34383B 50%, #25292C 50%, #1A1B1F 63%, black) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top , #303135, #3C3D42 6%, #404447 18%, #34383B 50%, #25292C 50%, #1A1B1F 63%, black) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top , #303135, #3C3D42 6%, #404447 18%, #34383B 50%, #25292C 50%, #1A1B1F 63%, black) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#303135), color-stop(6%,#3C3D42), color-stop(18%,#404447), color-stop(50%,#25292C), color-stop(63%,#1A1B1F), color-stop(100%,#000000)) repeat scroll 0 0 transparent;
+    border-top: 1px solid #FF6500;
+    color: white;
+    height: 2.167em;
+    line-height: 2.167em;
+    text-align: right;
+}
+
+nav {
+    float: left;
+    left: 0;
+    overflow: hidden;
+    width: 220px;
+    box-shadow: 4px 0 7px rgba(0, 0, 0, 0.2);
+    min-height: 100%;
+    border-right: 1px solid #ADAFB1;
+    position: absolute;
+}
+
+div.wrapper {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    min-height: 82%;
+}
+
+header {
+    background: -ms-linear-gradient(top, #014A7D 0%, #3399CC 100%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(top, #014A7D 0%, #3399CC 100%) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top, #014A7D 0%, #3399CC 100%) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top, #014A7D 0%, #3399CC 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#014A7D), color-stop(100%,#3399CC));
+    color: #666666;
+    left: 0;
+    height: 80px;
+    text-align: left;
+    text-transform: uppercase;
+    top: 0;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 5;
+}
+
+header img {
+    float: left;
+}
+
+.app-name {
+    color: rgba(255, 255, 255, 0.75);
+    display: block;
+    font-size: 36px;
+    font-weight: bold;
+    padding-top: 22px;
+}
+
+.header-shadow {
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 30%, transparent) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 30%, transparent) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 30%, transparent) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) 30%, transparent) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0, 0, 0, 0.3)), color-stop(30%,rgba(0, 0, 0, 0.1)), color-stop(100%,rgba(0, 0, 0, 1)), color-stop(50%,#25292C), color-stop(63%,#1A1B1F), color-stop(100%,#000000)) repeat scroll 0 0 transparent;
+    height: 0.75em;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 87;
+}
+
+.main-nav .profile {
+    height: 51px;
+    line-height: normal;
+    padding: 15px 15px 15px;
+}
+
+.main-nav .profile .img {
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 3px #999999;
+    display: block;
+    float: left;
+    width: 46px;
+    height: 46px;
+}
+
+.main-nav .profile .img img {
+    border: 0 none;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.main-nav .profile span {
+    display: block;
+    float: right;
+    padding: 10px 0 0 0;
+    text-align: left;
+}
+
+.main-nav .profile span strong {
+    color: #444444;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.main-nav .profile span a {
+    color: #47759E;
+    font-size: 12px;
+    outline: 0 none;
+    text-decoration: none;
+}
+
+nav > ul {
+    display: block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+nav > ul > li {
+    border-bottom: 1px solid #ACAEB0;
+    display: block;
+    height: 39px;
+    line-height: 39px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+nav > ul > li.active {
+    border-top: 1px solid #395E7E;
+    overflow: visible;
+    position: relative;
+}
+
+nav > ul > li:first-child {
+    border-top: 1px solid #ACAEB0;
+}
+
+nav > ul > li.hasSubmenu.active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+    height: auto;
+    padding: 0;
+}
+
+nav > ul > li.active > a {
+    background: -ms-linear-gradient(top, white, #72C6E4 4%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(top, white, #72C6E4 4%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top, white, #72C6E4 4%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(top, white, #72C6E4 4%, #0C5FA5 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(4%,#72C6E4), color-stop(100%,#0C5FA5));
+    border-bottom: 1px solid #395E7E;
+    border-top: 1px solid #6C91B1;
+    color: #FFFFFF;
+}
+
+nav > ul > li.hasSubmenu.active a {
+    border: medium none;
+}
+
+nav > ul > li img {
+    float: left;
+    margin: 3px 5px;
+    width: 32px;
+    height: 32px;
+}
+
+nav > ul > li a {
+    border-top: 1px solid #E0E2E4;
+    color: #45484D;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    margin: 0;
+    padding: 10px 40px 10px 42px;
+    text-decoration: none;
+    width: auto;
+    font-family: 'Open Sans',sans-serif;
+}
+
+nav > ul > li a span.menutext {
+    display: block;
+    height: 18px;
+    overflow: hidden;
+}
+
+nav > ul > li .count {
+    background: none repeat scroll 0 0 #45484D;
+    border-radius: 3px 3px 3px 3px;
+    color: #D6D6D6;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: normal;
+    padding: 1px 8px;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    height: 13px;
+}
+
+nav > ul > li.active .count {
+    background: none repeat scroll 0 0 #214460;
+    box-shadow: 0 1px 0 #96A8B7;
+    top: 11px;
+}
+
+nav > ul ul li {
+    border: medium none;
+    height: auto;
+}
+
+nav > ul ul li a {
+    border: medium none;
+    font-weight: 400;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 7px;
+}
+
+nav > ul ul li.active a {
+    background: none repeat scroll 0 0 #FAFAFA;
+    color: #45484D;
+    font-weight: 600;
+}
+
+nav > ul ul li a:hover {
+    background: none repeat scroll 0 0 #FAFAFA;
+}
+
+nav > ul ul li a span.menutext {
+    display: block;
+    height: 35px;
+    overflow: hidden;
+}
+
+.collapse {
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    transition: height 0.35s ease 0s;
+}
+
+.show {
+    height: auto;
+}
+
+div.container {
+    margin-left: 220px;
+    min-height: 100%;
+}
+
+footer {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    z-index: 100;
+}
+
+footer .float-right {
+    right: 0;
+}
+
+footer .float-left, footer .float-right {
+    bottom: 0;
+    position: absolute;
+}
+
+footer .float-right .button:first-child {
+    border-top-left-radius: 0.417em;
+}
+footer .float-right .button:last-child {
+    border-right: 0 none;
+}
+footer .float-left .button, footer .float-right .button {
+    border-bottom: 0 none;
+    border-radius: 0 0 0 0;
+    display: block;
+    float: left;
+    margin: 0;
+}

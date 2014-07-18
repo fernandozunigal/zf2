@@ -1,0 +1,52 @@
+<?php echo $this->doctype() . PHP_EOL; ?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php print $this->layout()->getVariable('locale'); ?>" xml:lang="<?php print $this->layout()->getVariable('locale'); ?>">
+    <head>
+        <?php echo $this->headMeta() . PHP_EOL; ?>
+        <?php echo $this->headLink() . PHP_EOL; ?>
+        <?php echo $this->headScript() . PHP_EOL; ?>
+        <?php echo $this->headStyle() . PHP_EOL; ?>
+        <?php echo $this->headTitle() . PHP_EOL; ?>
+    </head>
+    <body>
+        <header>
+            <div class="container_12">
+                <img src="/images/layout/logo.png" />
+                <p class="app-name">
+                    <?php echo $this->translate('Zend Framework 2 Course'); ?>
+                </p>
+            </div>
+        </header>
+        <div class="status-bar">
+            <div class="container_12">
+                <?php echo $this->navigation('navigation')->breadcrumbs()->setRenderInvisible(true)->setMinDepth(0)->setPartial(array('partial/breadcrumb.phtml', 'application'));?>
+            </div>
+        </div>
+        <div class="header-shadow"></div>
+        <div class="wrapper">
+            <nav class="main-nav">
+                <div class="profile">
+                    <a class="img" href="javascript:void(0);">
+                        <img>
+                    </a>
+                    <span>
+                        <strong>Fernando Zúñiga</strong>
+                        <a href="javascript:void(0);"><?php echo $this->translate('Edit Account'); ?></a>
+                    </span>
+                </div>
+                <?php echo $this->navigation('navigation')->menu()->setMaxDepth(1)->setRenderInvisible(false)->setPartial(array('partial/menu.phtml', 'application'))->render(); ?>
+            </nav>
+            <div class="container">
+                <?php echo $this->layout()->content; ?>
+            </div>
+        </div>
+        <footer>
+            <div class="float-right">
+                <a class="button" href="javascript:window.scrollTo(0, 0);">
+                    <img width="16" height="16" src="/images/application/icons/navigation-090.png">
+                    Page top
+                </a>
+            </div>
+        </footer>
+        <?php echo $this->inlineScript() . PHP_EOL; ?>
+    </body>
+</html>

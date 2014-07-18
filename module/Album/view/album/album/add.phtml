@@ -1,0 +1,23 @@
+<?php
+    $title = $this->translate('Add Album');
+    $this->headTitle($title);
+?>
+<div id="control-bar" class="grey-bg" style="opacity: 1;">
+    <div class="container_12">
+        <h1><?php echo $this->escapeHtml($title); ?></h1>
+    </div>
+</div>
+<article class="container_12 clearfix">
+    <section class="grid_12">
+        <?php
+            $form->setAttribute('action', $this->url('album/wildcard', array('locale' => $this->layout()->getVariable('locale'), 'action' => 'add')));
+            $form->prepare();
+            echo $this->form()->openTag($form);
+            echo $this->formHidden($form->get('albums_PK'));
+            echo $this->formRow($form->get('albums_title'));
+            echo $this->formRow($form->get('albums_FK_artists_PK'));
+            echo $this->formSubmit($form->get('submit'));
+            echo $this->form()->closeTag();
+        ?>
+    </section>
+</article>

@@ -1,0 +1,14 @@
+<!-- START Zend Developer Toolbar -->
+<div id="zend-developer-toolbar-wrapper">
+    <div id="zend-developer-toolbar">
+        <div class="zdt-toolbar-entry">Normal Request</div>
+        <?php
+        foreach ($this->entries as $entry) {
+            echo $entry;
+        }
+        ?>
+
+        <a class="zdf-toolbar-hide-button" title="Close Toolbar" onclick="this.parentNode.style.display = 'none';">✖</a>
+    </div>
+</div>
+<!-- END Zend Developer Toolbar -->

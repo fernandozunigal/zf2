@@ -1,0 +1,27 @@
+<div class="float-right">
+    <?php echo $this->escapeHtml($this->translate('Show')) . ' '; ?>
+    <select id="rowSelector" size="1">
+        <option value="10" selected="selected">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    </select>
+    <?php echo ' ' . $this->escapeHtml($this->translate($this->rowsTitle)); ?>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#rowSelector').change(function() {
+            $('#loading').addClass('loading');
+            jQuery.get(
+                '<?php echo $this->url($this->routeName, array('locale' => $this->layout()->getVariable('locale'))); ?>',
+                { 'page' : $('#controls .current').attr('id').split('-')[1], 'name' : $('.column-sort a.active').data('name'), 'order' : $('.column-sort a.active').data('order'), 'rows' : $('#rowSelector').val() },
+                function (response) {
+                    $('#controls').html(response.controls);
+                    $('#data').html(response.data);
+                    $('#messages').html(response.messages);
+                    $('#loading').removeClass('loading');
+                }
+            );
+        });
+    });
+</script>

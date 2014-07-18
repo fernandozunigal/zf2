@@ -1,0 +1,24 @@
+<ul class="controls-buttons">
+    <?php if(get_class($this->rowSet) == 'Zend\Paginator\Paginator'){
+        echo $this->paginationControl($this->rowSet, 'Sliding', array('partial/table/paginator.phtml', 'table'),array('route' => $this->route . '/wildcard'));
+    } else { ?>
+        <li><a id="refresh" title="<?php echo $this->escapeHtml($this->translate('Refresh')); ?>" href="javascript:void(0)"><img width="16" height="16" src="/images/table/icons/arrow-circle.png"></a></li>
+        <script>
+        $(document).ready(function(){
+            $('#refresh').click(function() {
+                $('#loading').addClass('loading');
+                jQuery.get(
+                    '<?php echo $this->url($this->route . '/wildcard', array('locale' => $this->layout()->getVariable('locale'))); ?>',
+                    { 'page' : 1, 'name' : $('.column-sort a.active').data('name'), 'order' : $('.column-sort a.active').data('order'), 'rows' : $('#rowSelector').val() },
+                    function (response) {
+                        $('#controls').html(response.controls);
+                        $('#data').html(response.data);
+                        $('#messages').html(response.messages);
+                        $('#loading').removeClass('loading');
+                    }
+                );
+            });
+        });
+    </script>
+    <?php } ?>
+</ul>

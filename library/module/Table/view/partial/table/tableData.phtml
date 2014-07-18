@@ -1,0 +1,68 @@
+<?php foreach ($this->rowSet as $row){ ?>
+    <tr>
+        <th class="table-check-cell" scope="row">
+            <input id="table-selected-<?php echo $this->escapeHtml($row->id); ?>" type="checkbox" value="<?php echo $this->escapeHtml($row->id); ?>" name="selected[]">
+        </th>
+        <?php if(isset($this->actions) && count($this->actions) > 0): ?>
+            <th class="table-actions" scope="row">
+                <?php
+                    foreach ($this->actions as $actionName => $actionConfig){ 
+                        $action = '';
+                        if(isset($actionConfig['action']) && $actionConfig['action'] != ''){
+                            $class = '';
+                            $title = '';
+                            $dataAction = '';
+                            $dataClass = '';
+                            $dataUrl = '';
+                            if(isset($actionConfig['ajax']) && $actionConfig['ajax']){
+                                $actionUrl = 'javascript:void(0);';
+                                $class = 'class="confirmable"';
+                                if(isset($actionConfig['modalConfirm']) && count($actionConfig['modalConfirm']) > 0){
+                                    if(isset($actionConfig['modalConfirm']['title']) && $actionConfig['modalConfirm']['title'] != ''){
+                                        $title = 'title="' . $this->escapeHtml($this->translate($actionConfig['modalConfirm']['title'])) . '"';
+                                    } else {
+                                        if(isset($actionConfig['title']) && $actionConfig['title'] != '') {
+                                            $title = 'title="' . $this->escapeHtml($this->translate($actionConfig['title'])) . '"';
+                                        } else {
+                                            $title = 'title="' . $this->escapeHtml($this->translate(ucfirst($actionName))) . '"';
+                                        }
+                                    }
+                                    $dataAction = 'data-action="' . $actionName . '"';
+                                    if(isset($actionConfig['modalConfirm']['type']) && $actionConfig['modalConfirm']['type'] != ''){
+                                        $dataClass = 'data-class="' . $actionConfig['modalConfirm']['type'] .'"';
+                                    }
+                                }
+                                $dataUrl = 'data-url="' . $this->url($this->routeMatch, array('locale' => $this->layout()->getVariable('locale'), 'action' => $actionConfig['action'])) . '"';
+                            } else {
+                                $actionUrl = $this->url($this->routeMatch . '/wildcard', array('locale' => $this->layout()->getVariable('locale'), 'action' => $actionConfig['action'], 'id' => $row->id));
+                            }
+                        }
+                        $action .= '<a id="' . $row->id . '" href="' . $actionUrl . '" ' . $class . ' ' . $title . ' ' . $dataAction . ' ' . $dataClass . ' ' . $dataUrl . '>';
+                        if(isset($actionConfig['image']) && $actionConfig['image'] != ''){
+                            $image = "/images/table/icons/{$this->escapeHtml($actionConfig['image'])}";
+                            if(isset($actionConfig['title']) && $actionConfig['title'] != '') {
+                                $title = $actionConfig['title'];
+                            } else {
+                                $title = ucfirst($actionName);
+                            }
+                            $title = $this->escapeHtml($this->translate($title));
+                            $action .= '<img width="16" height="16" src="' . $image . '" title="' . $title . '">';
+                        }
+                        $action .= '</a>';
+                        echo $action; 
+                    }
+                ?>
+            </th>
+        <?php endif; ?>
+        <?php
+            $first = true;
+            foreach ($row as $fieldValue){
+                if ($first) {
+                    $first = false;
+                    continue;
+                }
+        ?>
+        <td><?php echo $this->escapeHtml($fieldValue); ?></td>
+        <?php } ?>
+    </tr>
+<?php } ?>

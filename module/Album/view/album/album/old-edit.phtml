@@ -1,0 +1,178 @@
+<?php
+    $title = $this->translate('Edit Album');
+    $this->headTitle($title);
+?>
+<div id="control-bar" class="grey-bg" style="opacity: 1;">
+    <div class="container_12">
+        <h1><?php echo $this->escapeHtml($title); ?></h1>
+    </div>
+</div>
+<article class="container_12 clearfix">
+    <section class="grid_12">
+        <div class="block-border">
+            <?php 
+                $form->setAttribute('action', $this->url('album/wildcard', array('locale' => $this->layout()->getVariable('locale'), 'action' => 'edit', 'id' => $id)));
+                $form->prepare();
+                echo $this->form()->openTag($form);
+            ?>
+            <h1><?php echo $form->getLabel(); ?></h1>
+            <div class="block-controls top">
+                <?php echo $this->formSubmit($form->get('submit')); ?>
+                <?php echo $this->formReset($form->get('reset')); ?>
+                <?php echo $this->formButton($form->get('cancel')); ?>
+            </div>
+            <ul class="message warning no-margin">
+                <li><?php echo $this->escapeHtml($this->translate('Warning Message')); ?></li>
+                <li class="close-bt"></li>
+            </ul>
+            <?php echo $this->formHidden($form->get('albums_PK')); ?>
+            <?php echo $this->formHidden($form->get('csrf')); ?>
+            <div class="formContent">
+                <div class="col200pxL-left">
+                    <ul class="side-tabs js-tabs same-height">
+                        <li class="current"><a title="General Data" href="javascript:void(0);" data-sidetab="tab-general"><?php echo $this->escapeHtml($this->translate('General Data')); ?></a></li>
+                        <li class=""><a title="Languages" href="javascript:void(0);" data-sidetab="tab-languages"><?php echo $this->escapeHtml($this->translate('Languages')); ?></a></li>
+                        <li class=""><a title="Relations" href="javascript:void(0);" data-sidetab="tab-relations"><?php echo $this->escapeHtml($this->translate('Relations')); ?></a></li>
+                    </ul>
+                </div>
+                <div class="col200pxL-right">
+                    <div class="side-tabs-content" id="tab-general" style="min-height: 100px;">
+                        <ul class="tabs js-tabs same-height">
+                            <li class="current"><a href="javascript:void(0);" title="General" data-tab="general"><?php echo $this->escapeHtml($this->translate('General')); ?></a></li>
+                            <li class=""><a href="javascript:void(0);" title="Aditional" data-tab="aditional"><?php echo $this->escapeHtml($this->translate('Aditional')); ?></a></li>
+                            <li class=""><a href="javascript:void(0);" title="Description" data-tab="description"><?php echo $this->escapeHtml($this->translate('Description')); ?></a></li>
+                            <li><span><?php echo $this->escapeHtml($this->translate('Images')); ?></span></li>
+                        </ul>
+                        <div class="tabs-content">
+                            <div id="general" class="clearfix" style="min-height: 30px; display: block;">
+                                <fieldset>
+                                    <legend><?php echo $this->escapeHtml($this->translate('Main Information')); ?></legend>
+                                    <div class="columns required">
+                                        <?php echo $this->formLabel($form->get('albums_title')); ?>
+                                        <?php echo $this->formText($form->get('albums_title')); ?>
+                                    </div>
+                                    <div class="columns colx2-left required">
+                                        <?php echo $this->formLabel($form->get('albums_FK_artists_PK')); ?>
+                                        <?php echo $this->formSelect($form->get('albums_FK_artists_PK')); ?>
+                                    </div>
+                                    <div class="columns colx2-right required">
+                                        <?php echo $this->formLabel($form->get('albums_FK_companies_record_PK')); ?>
+                                        <?php echo $this->formSelect($form->get('albums_FK_companies_record_PK')); ?>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><?php echo $this->escapeHtml($this->translate('Publish Date')); ?></legend>
+                                    <div class="columns colx2-left required">
+                                        <?php echo $this->formLabel($form->get('albums_release_date')); ?>
+                                        <?php echo $this->formDateSelect($form->get('albums_release_date'), IntlDateFormatter::LONG, $this->layout()->getVariable('locale')); ?>
+                                    </div>
+                                    <div class="columns colx2-right required">
+                                        <?php echo $this->formLabel($form->get('albums_publication_date')); ?>
+                                        <?php echo $this->formDateSelect($form->get('albums_publication_date'), IntlDateFormatter::LONG, $this->layout()->getVariable('locale')); ?>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="colx2-left formRadio">
+                                    <legend><?php echo $form->get('albums_FK_music_styles_PK')->getLabel(); ?></legend>
+                                    <?php echo $this->formRadio($form->get('albums_FK_music_styles_PK')); ?>
+                                </fieldset>
+                                <fieldset class="colx2-right formCheck">
+                                    <legend><?php echo $form->get('albums_has_formats')->getLabel(); ?></legend>
+                                    <?php echo $this->FormMultiCheckbox($form->get('albums_has_formats')); ?>
+                                </fieldset>
+                            </div>
+                            <div id="aditional" class="clearfix" style="min-height: 30px; display: none;">
+                                <fieldset>
+                                    <legend><?php echo $this->escapeHtml($this->translate('Microsite Data')); ?></legend>
+                                    <div class="columns colx3-left-double">
+                                        <?php echo $this->FormLabel($form->get('albums_microsite_url')); ?>
+                                        <?php echo $this->FormUrl($form->get('albums_microsite_url')); ?>
+                                    </div>
+                                    <div class="columns colx3-right">
+                                        <?php echo $this->FormLabel($form->get('albums_microsite_background_color')); ?>
+                                        <?php echo $this->FormColor($form->get('albums_microsite_background_color')); ?>
+                                    </div>
+                                    <div class="columns colx3-left-double">
+                                        <?php echo $this->FormLabel($form->get('albums_email')); ?>
+                                        <?php echo $this->FormEmail($form->get('albums_email')); ?>
+                                    </div>
+                                    <div class="columns colx3-right">
+                                        <?php echo $this->FormLabel($form->get('albums_publish')); ?>
+                                        <?php echo $this->FormCheckbox($form->get('albums_publish')); ?>
+                                        <span class="switch-replace"></span>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><?php echo $this->escapeHtml($this->translate('Sales Data')); ?></legend>
+                                    <div class="columns colx2-left">
+                                        <?php echo $this->FormLabel($form->get('albums_copies_sold')); ?>
+                                        <?php echo $this->FormNumber($form->get('albums_copies_sold')); ?>
+                                    </div>
+                                    <div class="columns colx2-right">
+                                        <?php echo $this->FormLabel($form->get('albums_estimated_concerts')); ?>
+                                        <?php echo $this->FormRange($form->get('albums_estimated_concerts')); ?>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend><?php echo $this->escapeHtml($this->translate('Edition Security')); ?></legend>
+                                    <div class="columns colx2-left">
+                                        <?php echo $this->FormLabel($form->get('albums_edit_password')); ?>
+                                        <?php echo $this->FormPassword($form->get('albums_edit_password')); ?>
+                                    </div>
+                                    <div class="columns colx2-right">
+                                        <?php echo $this->FormLabel($form->get('albums_edit_password_verify')); ?>
+                                        <?php echo $this->FormPassword($form->get('albums_edit_password_verify')); ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div id="description" class="clearfix" style="min-height: 30px; display: none;">
+                                <?php echo $this->FormTextarea($form->get('albums_description')); ?>
+                            </div>
+                            <div id="images" class="clearfix" style="min-height: 30px; display: none;">
+                                <?php echo $this->escapeHtml($this->translate('Images')); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side-tabs-content no-display" id="tab-languages" style="min-height: 100px;">
+                        <?php echo $this->escapeHtml($this->translate('Languages')); ?>
+                    </div>
+                    <div class="side-tabs-content no-display" id="tab-relations" style="min-height: 100px;">
+                        <?php echo $this->escapeHtml($this->translate('Relations')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="block-controls bottom">
+                <?php echo $this->formSubmit($form->get('submit')); ?>
+                <?php echo $this->formReset($form->get('reset')); ?>
+                <?php echo $this->formButton($form->get('cancel')); ?>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+        </div>
+    </section>
+</article>
+<script>
+    $(document).ready(function(){
+        $('.side-tabs').on('click', 'a', function(event){
+            $('.side-tabs-content').css('display', 'none');
+            $('.side-tabs-content#' + $(event.currentTarget).data('sidetab')).css('display', 'block');
+            $('.side-tabs > li').removeClass('current');
+            $(event.currentTarget).parent().addClass('current');
+        });
+        $('.tabs').on('click', 'a', function(event){
+            $('.tabs-content > div').css('display', 'none');
+            $('.tabs-content > div#' + $(event.currentTarget).data('tab')).css('display', 'block');
+            $('.tabs > li').removeClass('current');
+            $(event.currentTarget).parent().addClass('current');
+        });
+        $("span.switch-replace").each(function(){
+            $(this).on('click', function(event){
+                if($(event.currentTarget).prev()[0].checked){
+                    $(event.currentTarget).prev()[0].checked=false;
+                    $(event.currentTarget).prev().val(0);
+                } else {
+                    $(event.currentTarget).prev()[0].checked=true;
+                    $(event.currentTarget).prev().val(1);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,29 @@
+<section class="grid_12">
+    <div class="block-border">
+        <div class="block-content">
+            <?php echo $this->partial('partial/table/title.phtml', array('title' => $this->table->title, 'buttonAdd' => $this->table->buttonAdd)); ?>
+            <div id="controls" class="block-controls">
+                <?php echo $this->table()->controls(); ?>
+            </div>
+            <div class="no-margin">
+                <div class="table_overflow_wrapper">
+                    <table id="<?php echo $this->StringToId($this->table->title) ?>" class="table" cellspacing="0">
+                        <?php echo $this->partial('partial/table/tableTitles.phtml', array('titlesRowSet' => $this->rowSet, 'orderBy' => $this->table->orderBy, 'orderDirection' => $this->table->orderDirection, 'actions' => $this->table->actions)); ?>
+                        <tbody id="data">
+                            <?php echo $this->table()->data($this->table->actions); ?>
+                        </tbody>
+                    </table>
+                </div>
+                <ul id="messages" class="message no-margin">
+                    <?php echo $this->table()->messages($this->table->rowsTitle); ?>
+                </ul>
+            </div>
+            <?php echo $this->partial('partial/table/tableFooter.phtml', array('rowSet' => $this->rowSet, 'tableId' => $this->StringToId($this->table->title), 'multirowActions' => $this->table->multirowActions, 'routeName' => $this->routeName, 'rowsTitle' => $table->rowsTitle)); ?>
+        </div>
+    </div>
+</section>
+<?php
+    if(isset($table->actions) && count($table->actions) > 0){
+        echo $this->partial('partial/table/actionsModal.phtml', array('actions' => $this->table->actions));
+    }
+?>

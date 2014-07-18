@@ -1,0 +1,94 @@
+<?php if ($this->pageCount): ?>
+    <?php $pagesInRange = $this->pagesInRange; ?>
+    <?php if (isset($this->previous)): ?>
+        <li>
+            <a id="previous" title="<?php echo $this->escapeHtml($this->translate('Prev')); ?>" href="javascript:void(0)">
+                <img width="16" height="16" src="/images/table/icons/navigation-180.png">
+                &nbsp;<?php echo $this->escapeHtml($this->translate('Prev')); ?>
+            </a>
+        </li>
+    <?php endif; ?>
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <li><a id="page-<?php echo $page; ?>" title="<?php echo $this->escapeHtml($this->translate('Page')) . ' ' . $page; ?>" href="javascript:void(0)"><b><?php echo $page; ?></b></a></li>
+        <?php else: ?>
+            <li><a id="page-<?php echo $page; ?>" class="current" title="Page <?php echo $page; ?>" href="javascript:void(0)"><b><?php echo $page; ?></b></a></li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php if (isset($this->next)): ?>
+        <li>
+            <a id="next" title="<?php echo $this->escapeHtml($this->translate('Next')); ?>" href="javascript:void(0)">
+                <?php echo $this->escapeHtml($this->translate('Next')); ?>&nbsp;
+                <img width="16" height="16" src="/images/table/icons/navigation.png">
+            </a>
+        </li>
+    <?php endif; ?>
+<?php endif; ?>
+<li class="sep"></li>
+<li>
+    <a id="refresh" title="<?php echo $this->escapeHtml($this->translate('Refresh')); ?>" href="javascript:void(0)"><img width="16" height="16" src="/images/table/icons/arrow-circle.png"></a>
+</li>
+<script>
+    $(document).ready(function(){
+        <?php foreach ($pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                $('#page-<?php echo $page; ?>').click(function() {
+                    $('#loading').addClass('loading');
+                    jQuery.get(
+                        '<?php echo $this->url($this->route, array('locale' => $this->layout()->getVariable('locale'))); ?>',
+                        { 'page' : <?php echo $page; ?>, 'name' : $('.column-sort a.active').data('name'), 'order' : $('.column-sort a.active').data('order'), 'rows' : $('#rowSelector').val() },
+                        function (response) {
+                            $('#controls').html(response.controls);
+                            $('#data').html(response.data);
+                            $('#messages').html(response.messages);
+                            $('#loading').removeClass('loading');
+                        }
+                    );
+                });
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if (isset($this->previous)): ?>
+            $('#previous').click(function() {
+                $('#loading').addClass('loading');
+                jQuery.get(
+                    '<?php echo $this->url($this->route, array('locale' => $this->layout()->getVariable('locale'))); ?>',
+                    { 'page' : <?php echo $this->previous; ?>, 'name' : $('.column-sort a.active').data('name'), 'order' : $('.column-sort a.active').data('order'), 'rows' : $('#rowSelector').val() },
+                    function (response) {
+                        $('#controls').html(response.controls);
+                        $('#data').html(response.data);
+                        $('#messages').html(response.messages);
+                        $('#loading').removeClass('loading');
+                    }
+                );
+            });
+        <?php endif; ?>
+        <?php if (isset($this->next)): ?>
+        $('#next').click(function() {
+            $('#loading').addClass('loading');
+            jQuery.get(
+                '<?php echo $this->url($this->route, array('locale' => $this->layout()->getVariable('locale'))); ?>',
+                { 'page' : <?php echo $this->next; ?>, 'name' : $('.column-sort a.active').data('name'), 'order' : $('.column-sort a.active').data('order'), 'rows' : $('#rowSelector').val() },
+                function (response) {
+                    $('#controls').html(response.controls);
+                    $('#data').html(response.data);
+                    $('#messages').html(response.messages);
+                    $('#loading').removeClass('loading');
+                }
+            );
+        });
+        <?php endif; ?>
+        $('#refresh').click(function() {
+            $('#loading').addClass('loading');
+            jQuery.get(
+                '<?php echo $this->url($this->route, array('locale' => $this->layout()->getVariable('locale'))); ?>',
+                { 'page' : <?php echo $this->current; ?>, 'name' : $('.column-sort a.active').data('name'), 'order' : $('.column-sort a.active').data('order'), 'rows' : $('#rowSelector').val() },
+                function (response) {
+                    $('#controls').html(response.controls);
+                    $('#data').html(response.data);
+                    $('#messages').html(response.messages);
+                    $('#loading').removeClass('loading');
+                }
+            );
+        });
+    });
+</script>

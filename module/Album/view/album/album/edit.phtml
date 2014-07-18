@@ -1,0 +1,19 @@
+<?php
+    $title = $this->translate('Edit Album');
+    $this->headTitle($title);
+?>
+<div id="control-bar" class="grey-bg" style="opacity: 1;">
+    <div class="container_12">
+        <h1><?php echo $this->escapeHtml($title); ?></h1>
+    </div>
+</div>
+<article class="container_12 clearfix">
+    <section class="grid_12">
+        <div class="block-border">
+            <?php 
+                $form->setAttribute('action', $this->url('album/wildcard', array('locale' => $this->layout()->getVariable('locale'), 'action' => 'edit', 'id' => $id)));
+                echo $this->formBuilder($form);
+            ?>
+        </div>
+    </section>
+</article>

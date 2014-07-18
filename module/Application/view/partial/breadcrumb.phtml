@@ -1,0 +1,11 @@
+<ul class="breadcrumb">
+    <?php foreach ($this->pages as $key => $page):?>
+        <li>
+            <?php if ($key < count($this->pages) - 1): ?>
+                <a href="<?php echo $this->url($page->getRoute(), array('locale' => $this->layout()->getVariable('locale'))); ?>"><?php echo $this->translate($page->getLabel()); ?></a>
+            <?php else: ?>
+                <span><?php echo $this->translate($page->getLabel()); ?></span>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>
