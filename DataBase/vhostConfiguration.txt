@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    ServerAdmin admin@zf2.localhost
+    DocumentRoot "C:/xampp/htdocs/zf2/public/"
+    ServerName zf2.localhost
+	ServerAlias www.zf2.localhost
+	<Directory "C:/xampp/htdocs/zf2/public/">
+		Options All
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+    </Directory>
+    ErrorLog "logs/zf2-error.log"
+    CustomLog "logs/zf2-access.log" common
+</VirtualHost>
